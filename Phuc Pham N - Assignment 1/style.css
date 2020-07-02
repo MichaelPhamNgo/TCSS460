@@ -225,12 +225,6 @@ footer p {
 }
 
 /* pageTwo.html */
-.row::after {
-	content: "";
-	clear: both;
-	display: table;
-}
-
 label {
 	display: block;
 	padding: 5px 0;

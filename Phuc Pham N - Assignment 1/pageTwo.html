@@ -37,7 +37,7 @@
             <h3>Customer Registration</h3>        
             <h4>1. User Info</h4>
             <table>
-                <tr class="row">
+                <tr>
                     <td class="col-50">
                         <label for="first" class="title">First Name</label>
                         <input type="text" name="first" required class="shortInput"/>
@@ -47,13 +47,13 @@
                         <input type="text" name="last" required class="shortInput"/>
                     </td>
                 </tr>
-                <tr class="row">
+                <tr>
                     <td class="col-100" colspan="2">
                         <label for="email">Email</label>
                         <input type="email" name="email" required pattern="[\w-]+@([\w-]+\.)+[\w-]+" class="longInput"/>
                     </td>
                 </tr>
-                <tr class="row">
+                <tr>
                     <td class="col-50">
                         <label for="pass1">Password</label>
                         <input type="password" name="pass1" required class="shortInput"/>
@@ -66,13 +66,13 @@
             </table>
             <h4>2. Location</h4>
             <table>
-                <tr class="row">
+                <tr>
                     <td class="col-100" colspan="2">
                         <label for="address">Address</label>
                         <input type="text" name="address" class="longInput"/>
                     </td>                
                 </tr>
-                <tr class="row">
+                <tr>
                     <td class="col-50">
                         <label for="city">City</label>
                         <input type="text" name="city" class="shortInput"/>
@@ -83,10 +83,10 @@
                     </td>
                     <td class="col-25">
                         <label for="zip">Zip</label>
-                        <input type="text" name="zip" class="veryShortInput"/>
+                        <input type="number" name="zip" class="veryShortInput"/>
                     </td>
                 </tr>
-                <tr class="row">
+                <tr>
                     <td class="col-50">
                         <label for="phone">Phone</label>
                         <input type="tel" name="phone" pattern="\d{3}-\d{3}-\d{4}" required class="shortInput"/>
@@ -98,7 +98,7 @@
                         </select>
                     </td>
                 </tr>
-                <tr class="row">
+                <tr>
                     <td class="col-100" colspan="2">
                         <label for="Address">Continent</label>
                         <span class="RadioGroup"><input type="radio" name="continent" value="1">Africa</span>
@@ -113,17 +113,17 @@
             </table>
             <h4>3. Personal Details</h4>
             <table>
-                <tr class="row">
+                <tr>
                     <td class="col-50">
                         <label for="birthday">Birth Day</label>
-                        <input type="date" name="birthday"/>
+                        <input type="date" pattern="\d{1,2}/\d{1,2}/\d{4}" name="birthday"/>
                     </td>
                     <td class="col-50">
                         <label for="favorite">Favorite Color</label>
                         <input type="color" name="favorite"/>
                     </td>
                 </tr>
-                <tr class="row">
+                <tr>
                     <td class="col-100" colspan="2">
                         <label for="interest">Interest In Art</label>
                         <span>Minimal <input type="range" name="interest"/> Love it!</span>
@@ -132,7 +132,7 @@
             </table>
             <h4>4. All Done</h4>
             <table>
-                <tr class="row">
+                <tr>
                     <td class="col-100" colspan="2">
                         <input type="checkbox" name="accept" checked/> I agree to the <a href="#">Terms of the Site</a>
                     </td>
