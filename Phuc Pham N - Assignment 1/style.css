@@ -55,7 +55,6 @@ body {
 }
 
 a {
-	text-decoration: none;	
 	cursor: pointer;
 }
 
@@ -99,24 +98,26 @@ nav.topnav {
 	padding: 10px 20px;
 	display: block;
 	float: left;
-	color: #ddd;
+	color: #999;
+	text-decoration: none;
+	font-weight: bold;
 }
 
 nav.bottomnav {
 	overflow: hidden;
 	  border: 1px solid #ccc;
-	  background: #ddd;
+	  background: #eee;
 	  margin-bottom: 10px;
 }
 
 nav.bottomnav a{
 	padding: 10px;	
-	text-decoration: none;	
 	display: block;
 	text-align: center;
 	color: #666;
 	float: left;
 	font-weight: bold;
+	text-decoration: none;
 }
 
 .container {
@@ -167,9 +168,13 @@ p.linkGroup {
 
 p.linkGroup a.button{
 	color: blue;
-	padding: 8px 40px;
+	padding: 10px 40px;
 	font-weight: 600;
+	font-size: 16px;
 	border: 1px solid #bbb;
+	border-radius: 4px;
+	background-image: linear-gradient(#fff, #ccc);
+	cursor:pointer;
 }
 
 td.col1 {
@@ -190,13 +195,23 @@ td.col2 {
 	display: inline-block;
 	border: 1px solid #ccc;
 	text-align: center;
-	padding: 5px 20px;
+	padding: 5px 18px;
 }
 
 .category .product:not(:last-child){
 	margin-right: 10px;
 }
 
+button.button{
+	border: 1px solid #bbb;
+	border-radius: 4px;
+	background-image: linear-gradient(#fff, #ccc);
+	cursor:pointer;
+}
+
+button.button.center{
+	margin: 5px;
+}
 
 footer {
 	background: #111;
