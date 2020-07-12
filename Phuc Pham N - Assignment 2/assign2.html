@@ -83,13 +83,12 @@
 		<ul class="gallery">
         </ul>        
     </main>
-    <div id="show">
+    <div id="preview">
         <!-- <img style='width:640px;height:480px;' src='images/medium/6114907897.jpg' alt='At the top of Sulpher Mountain'/> -->
     </div>
     <script>
         var people = [];
-        $(document).ready(function(){
-            
+        $(document).ready(function(){            
             $.getJSON("js/data.json", function(data){                      
                 for(var i = 0; i <data.length; i++) {
                     var person = {
@@ -106,24 +105,43 @@
                 }      
                 var li = "";
                 for(var i = 0; i < people.length; i++) {
-                    li = li + "<li><a href='#'><img style='width:250px; "
-                            + "height:250px;' src='images/square/"                        
-                            + people[i].path + "' alt ='" + people[i].title 
-                            + "' id = '" + people[i].id + "'/></a></li>";           
+                    li = li.concat("<li>"); 
+                    li = li.concat("<a href='#'>");
+                    li = li.concat("<img src='images/square/" + people[i].path + "' ");    
+                    li = li.concat("style='width:250px;height:250px' ");
+                    li = li.concat("alt ='" + people[i].title + "' "); 
+                    li = li.concat("id = '" + people[i].id + "'/></a>");           
+                    li = li.concat("</li>");
                 }            
                 $(".gallery").html(li);      
             });            
         });
+        var html;
         $(window).on('load', function () {
             $(".gallery img").each(function(index)
             {
                 $(this).mouseenter(function()  {       
-                    $(this).addClass("gray");                      
+                    $(this).addClass("gray");  
+                    html = "<div>";
+                    html = html.concat("<img src='images/medium/" + people[index].path + "'");                    
+                    html = html.concat(" alt='" + people[index].title + "'/>");
+                    html = html.concat("<p>" + people[index].title + "</p>");
+                    html = html.concat("<p>" + people[index].city + ", " + people[index].country + " [" + people[index].taken + "]" + "</p>");
+                    html = html.concat("</div>");
                 });
                 $(this).mouseleave(function()  {       
-                    $(this).removeClass("gray");                      
-                });
+                    $(this).removeClass("gray");
+                    $("#preview").hide();            
+                });   
             });
+            $(".gallery").on("mousemove", function( event ) {
+                $("#preview")
+                    .show()
+                    .html(html)
+                    .css({ position: 'absolute', color: '#fff',
+                    left: event.pageX + 10, top: event.pageY + 10
+                });
+            });                    
         });
     </script>
     
