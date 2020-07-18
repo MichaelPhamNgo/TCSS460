@@ -1,0 +1,221 @@
+<!-- TCSS 460 : Summer 2020 -->
+<!-- PHUC PHAM N -->
+<!-- Module 3 Example: Connecting to Github API -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mod3-example</title>
+    <!-- add a reference to the external stylesheet -->
+    <link rel="stylesheet" href="https://bootswatch.com/4/litera/bootstrap.min.css">
+
+    <!-- you can try other themes -->
+    <!--link rel="stylesheet" href="https://bootswatch.com/4/spacelab/bootstrap.min.css" -->
+    <!--link rel="stylesheet" href="https://bootswatch.com/4/solar/bootstrap.min.css" -->
+    <!--link rel="stylesheet" href="https://bootswatch.com/4/united/bootstrap.min.css" -->
+
+    <!-- add reference to jQuery -->
+    <script src="http://code.jquery.com/jquery-3.5.1.min.js"></script>
+</head>
+<body>
+
+    <!-- HTML code for displaying the navigation bar on the top -->
+    <nav class="navbar navbar-dark bg-primary mb-3">
+        <div class="container">
+            <a href="#" class="navbar-brand">Github API Example</a>
+        </div>
+    </nav>
+    <!-- HTML code for displaying the search container -->
+    <div class="container searchContainer">
+        <div class="search card card-body">
+            <h1>Search Github API</h1>
+            <p class="lead">Enter a user profile name:</p>
+            <input type="text" id="username" class="form-control" placeholder="enter a Github user name...">
+        </div>
+    </div>
+    <br>
+
+    <!-- HTML code for displaying the profile data -->
+    <div id="profile">
+    </div>
+    
+    <script>
+        // create a class that will be responsible for the user interface
+        // Name: UI
+        class UI {
+            constructor() {
+                this.profile = document.getElementById("profile");
+            }
+
+            // display profile
+            showProfile(user) {
+                this.profile.innerHTML = `
+                <div class="card card-body mb-3">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img class="img-fluid mb-2" src = "${user.avatar_url}">
+                            <a href="${user.html_url}" class = "btn btn-primary btn-block mb-3" target="_blank">View Profile</a>
+                        </div>
+                        <div class="col-md-5">
+                            <span class="badge badge-primary">Public Repos: ${user.public_repos}</span>
+                            <span class="badge badge-secondary">Public Gists: ${user.public_gists}</span>
+                            <span class="badge badge-success">Followers: ${user.followers}</span>
+                            <span class="badge badge-info">Following: ${user.following}</span>
+                            <br><br>
+                            <ul class="list-group">
+                                <li class="list-group-item">Company: ${user.company}</li>
+                                <li class="list-group-item">Blog: ${user.blog}</li>
+                                <li class="list-group-item">Location: ${user.location}</li>
+                                <li class="list-group-item">Member Since: ${user.created_at}</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                `;
+            }
+
+            //Revise showAlert {new version}
+            showAlert(message, className) {
+                // clear any remaining alerts
+                 this.clearAlert();
+                // create new div html for alert message
+                var div = "<div class='"+ className +"'>";
+                div = div.concat(message);
+                div = div.concat("</div>");                
+                // add searchContainer css
+                $(".container").addClass("searchContainer");                
+                // add div content before div contain search css
+                $(div).insertBefore(".search");                
+                // timeout after 3 seconds for the alert message to disappear
+                setTimeout(this.clearAlert, 3000);
+            }
+
+            // display an alert message when the is no user profile that exists {old version}
+            // showAlert(message, className) {
+                // clear any remaining alerts
+                // this.clearAlertMessage();
+
+                // create new HTML (div)
+                // const div = document.createElement('div');
+                
+                // add class to element
+                // div.className = className;
+                // div.appendChild(document.createTextNode(message));
+                
+                // get parent
+                
+                // const container = document.querySelector(".searchContainer");
+                
+                // get search box
+                // const search = document.querySelector(".search");
+                
+                // insert alert message
+                // container.insertBefore(div, search);
+
+                // timeout after 3 seconds for the alert message to disappear
+                // setTimeout(this.clearAlertMessage, 3000);
+            // }
+
+            // revise clearAlertMessage {new version}
+            clearAlert() {
+                alert = $(".alert");
+                if(alert) {
+                    alert.remove();
+                }
+            }
+            
+            // // clear the alert message to avoid duplication of alert div tags {old version}
+            // clearAlertMessage() {
+            //     const currentAlert = document.querySelector(".alert");
+            //     if (currentAlert) {
+            //         currentAlert.remove();
+            //     }
+            // }
+
+            // clear the profile tag
+            clearProfile()
+            {
+                this.profile.innerHTML = '';
+            }
+        }
+
+        // create a class that will be responsible for processing requests and responses from Github
+        // Name: Github
+        class Github {
+            constructor() {
+                // optional: use two variables to extend the free daily limit of Github
+                this.client_id = 'enter your github userid here';
+                this.client_secret = 'enter your token here';
+            }
+
+            // an asynchronous function for connecting to Github and returning the response (e.g. JSON data)
+            async getUser(user) {
+                // default: use this line with using free daily limit (no client_secret or token is required)
+                const profileResponse = await fetch(`https://api.github.com/users/${user}`);
+
+                // use this line with to extend the free daily limit (client_secret or token is required as querystring)
+                // const profileResponse = await fetch(`https://api.github.com/users/${user}?client_id=${this.client_id}&client_secret=${this.client_secret}`);
+
+                // process profile data in JSON format and return for this asynchronous function
+                const profileData = await profileResponse.json();
+                return {profileData}
+            }
+        }   
+
+        // ********************************************************** //
+        // JavaScript code for using Github and UI classes            //
+        // ********************************************************** //
+        // begin javascript code for processing text in input box
+        // create an instance of the Github class 
+        github = new Github;
+        
+        // create an instance of the UI class 
+        ui = new UI;
+
+        // capture user input
+        const searchUser = document.getElementById("username");
+
+        // attach an event listener
+        searchUser.addEventListener("keyup", function (e) {
+            // retrieve the user profile name
+            const userText = e.target.value;
+
+            // check if the user has a value in the textbox
+            if (userText !== '')
+            {
+                // connect to Github API
+                github.getUser(userText)
+                     .then (data => {
+                        if (data.profileData.message === 'Not Found') {
+                            // show alert box
+                            // you may wish to try other variations of the alert class
+                            // go to https://bootswatch.com/litera/ and locate the alerts section. 
+                            // Then, choose a color and copy the relevant code in the class name (2nd parameter)
+                            // options: you can try:
+                            // (1) "alert alert-dismissible alert-warning"
+                            // (2) "alert alert-dismissible alert-info"
+                            // (3) "alert alert-dismissible alert-success"
+                            // (4) "alert alert-dismissible alert-secondary"
+                            ui.showAlert("User profile is not valid", "alert alert-dismissible alert-danger" )
+                            // clear profile
+                            ui.clearProfile();
+                        }
+                        else
+                        {
+                            // display the profile
+                            ui.showProfile(data.profileData);
+                            console.log(data); 
+                        }
+                })
+            }
+            else
+            {
+                // clear profile
+                ui.clearProfile();
+            }
+            //console.log(userText);
+        });
+    </script>
+</body>
+</html>
