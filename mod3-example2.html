@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://bootswatch.com/4/flatly/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+  <title>Sample Example</title>
+  <style>
+    #displayImage {
+      width: 600px;
+      height: 400px;
+    }
+
+    .jumbotron {
+      min-height: 650px;
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <a class="navbar-brand" href="#">Graphical Effects Example</a>
+  </nav>
+
+  <div class="jumbotron p-2 ">
+    <h1 class="display-6">TCSS 460 CSS Effects Example !</h1>
+    <p class="lead">This example will help you learn how to control the graphical effects of images using jQuery.</p>
+    <div class="row ml-2 justify-content-left p-2 ">
+      <div class="col-md-3">
+        <p>Select an image from the drop down menu below:</p>
+        <div class="form-group ">
+          <select class="form-control" id="selectImage">
+            <option value="">Select an image</option>
+            <option
+              value="https://blogs-images.forbes.com/trevornace/files/2015/11/bora-bora-French-Polynesia-1200x804.jpg">
+              Bora Bora Island, French Polynesia</option>
+            <option
+              value="https://blogs-images.forbes.com/trevornace/files/2015/11/rice-terrace-longsheng-1200x795.jpg">Rice
+              Terrace Fields of Longsheng, China</option>
+            <option value="https://blogs-images.forbes.com/trevornace/files/2015/11/victoria-falls-1200x1001.jpg">
+              Victoria Falls, Zambia/Zimbabwe</option>
+            <option value="https://blogs-images.forbes.com/trevornace/files/2015/11/railay-thailand-1200x832.jpg">
+              Railay, Thailand</option>
+          </select>
+        </div>
+        <p>Select a graphical effect:</p>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="effect" id="effect_blur" value="5">
+            Blur 5px
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="effect" id="effect_bright" value="200">
+            Brightness 150%
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="effect" id="effect_gray" value="60">
+            Grayscale 60%
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="effect" id="effect_opacity" value="30">
+            Opacity 30%
+          </label>
+        </div>
+        <div class="form-check">
+          <label class="form-check-label">
+            <input type="radio" class="form-check-input" name="effect" id="effect_reset">
+            Reset
+          </label>
+        </div>
+        <br></brE><p id="selectText">Filter selection: none</p>
+
+      </div>
+      <div class="col-md-7 ml-5" id="profile">
+        <div class="card bg-light mb-3">
+          <div class="card-header"></div>
+          <div class="card-body text-center">
+            <img id="displayImage" src="">
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <footer>
+    <div class="footer-copyright text-center text-light bg-dark p-3">Summer 2020: TCSS 460 Graphical Effects Example</a>
+    </div>
+  </footer>
+
+
+  <script>
+    function setStatus(showStatus) {
+      $("#effect_blur").prop("disabled", showStatus);
+      $("#effect_bright").prop("disabled", showStatus);
+      $("#effect_gray").prop("disabled", showStatus);
+      $("#effect_opacity").prop("disabled", showStatus);
+      $("#effect_reset").prop("disabled", showStatus);
+    };
+
+    $(document).ready(function () {
+      $("#profile").hide();
+      setStatus(true);
+    });
+
+    $(function () {
+      $("#selectImage").change(function (e) {
+        var optionSelected = $(this).find('option:selected').val();
+
+        if ( optionSelected !== "" ) {
+          var valueSelected = this.value;
+          var currentText = $(":selected", this).text();
+          setStatus(false);
+          $("#displayImage").attr("src" , valueSelected);
+          $("#profile").show();
+          $("#profile .card-header").html(currentText);
+
+        }
+        else
+        {
+          $("#profile").hide();
+          setStatus(true);
+
+        }
+      });
+    });
+
+
+
+    $(function () {
+      $("input[type=radio]").on('input', function (e) {
+
+        var blur = 'blur(' + $('#effect_blur').val() + 'px)';
+        var bright = 'brightness(' + $('#effect_bright').val() + '%)';
+        var gray = 'grayscale(' + $('#effect_gray').val() + '%)';
+        var opacity = 'opacity(' + $('#effect_opacity').val() + '%)';
+
+        $("#profile").show();
+
+        clickedItem = $(e.target).attr("id");
+        var choiceText = $(e.target).parent().text();
+        var imageLocation = e.target.value;
+        console.log(imageLocation);
+
+        var parText = $('#selectText').html().split(":");
+
+
+        console.log(parText);
+
+        $("#displayImage").attr("href", imageLocation);
+
+        switch (clickedItem) {
+          case 'effect_blur':
+            {
+              cssSettings = blur;
+              $('#selectText').html(parText[0] + ': ' + choiceText);
+              break;
+            }
+          case 'effect_bright':
+            {
+              cssSettings = bright;
+              $('#selectText').html(parText[0] + ': ' + choiceText);
+              break;
+            }
+          case 'effect_gray':
+            {
+              cssSettings = gray;
+              $('#selectText').html(parText[0] + ': ' + choiceText);
+              break;
+            }
+          case 'effect_opacity':
+            {
+              cssSettings = opacity;
+              $('#selectText').html(parText[0] + ': ' + choiceText);
+              break;
+            }
+          case 'effect_reset':
+            {
+              cssSettings = 'none';
+              $('#selectText').html(parText[0] + ': ' + 'None');
+              break;
+            }
+        }
+
+
+        var manipulateImage = $('#displayImage');
+        manipulateImage.css('-webkit-filter', cssSettings);
+        manipulateImage.css('filter', cssSettings);
+        //console.log($(e.target).attr("id"));
+      });
+    });
+
+  </script>
+
+</body>
+
+</html>
