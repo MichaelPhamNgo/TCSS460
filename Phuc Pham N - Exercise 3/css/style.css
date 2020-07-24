@@ -29,9 +29,7 @@ footer, header, hgroup, menu, nav, section {
 }
 body {
     line-height: 1;
-    background-color: #fff;
-    width:800px;
-    margin: 0 auto;
+    background-color: #fff;    
 	font-family: Arial, Helvetica, sans-serif;
 	color: #333;
 	font-size: 12px;
@@ -75,12 +73,13 @@ h4 {
 	margin: 10px 0;
 }
 
-p {
-	line-height: 1.5;
+p{
+	line-height: 1.2;
 }
 
-.container {             
-    margin-top: 20px;
+.container {         
+	width: 800px;
+    margin: 20px auto;        
     padding: 0px;
     -moz-box-shadow: 6px 6px 20px 0px #999;
     -webkit-box-shadow: 6px 6px 20px 0px #999;
@@ -93,11 +92,15 @@ p {
 
 .title p {
     color: #fff;
-    padding: 5px 20px;
+    padding: 15px 20px;
+}
+
+.main{
+	margin: 10px 20px 20px 20px;
 }
 
 .nav {
-    margin: 10px 20px 20px 20px;
+    
     border-bottom: 1px solid #ddd;
 }
 
@@ -122,4 +125,133 @@ p {
     border: 1px solid #ddd;
     border-bottom-color: transparent;
     cursor: default;
+}
+
+.clearfix:not(:last-child) {
+	content: "";
+  	clear: both;
+	display: table;
+	border-bottom: 1px solid #ddd;
+	padding: 10px 0;
+}
+
+.clearfix:last-child {
+	content: "";
+  	clear: both;
+	display: table;	
+	padding: 10px 0;
+}
+
+.left{
+	float: left;
+	width: 220px;
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	-moz-box-shadow: 3px 3px 10px 0px #ddd;
+    -webkit-box-shadow: 3px 3px 10px 0px #ddd;
+	box-shadow: 3px 3px 10px 0px #ddd;
+	padding: 5px 10px;
+}
+
+.right {
+	float: left;
+	width: 540px;
+}
+
+label.control-label {
+	line-height: 2;
+}
+
+p.form-control-static {
+	padding: 0px;
+	line-height: 2;
+}
+
+.search {
+	margin: 10px 0;
+	border: 1px solid #007BFF;
+	border-radius: 3px;		
+}
+
+.search_title{
+	background-color: #ddd;
+	border-bottom: 1px solid #bbb;
+	padding: 10px;
+	margin-bottom: 15px;
+}
+
+.modal-header {
+	padding: 15px 10px 0px 10px;
+	border-bottom: none;
+}
+
+.center {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+.col-form-label {
+	padding: 15px 25px;	
+}
+
+.contentWTT{	
+	display: none;
+}
+
+.city {
+	padding: 10px 10px 0px 15px;
+    font-size: 24px;
+}
+
+.date, .forecast, .humidity, .windy {
+	padding: 5px 5px 0px 20px;
+	font-size: 12px;
+}
+
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+    position: absolute;
+}
+
+.icon {
+	margin-left: 15px;
+    width: 100px;
+    height: 100px;
+    float: left;
+}
+
+.temp{
+    font-size: 60px;   
+    color: #000;         
+}
+
+.switch{
+    position: relative;
+    top: 26px;
+    left: 65px;    
+}
+
+.other {    
+    width: 150px;
+    float: right;
+    color: #000;
+} 
+
+.my-body {
+	padding: 10px;
+}
+
+@media screen and (min-width: 768px) {
+	.modal-content {
+	  width: 300px; /* New width for default modal */
+	  margin: 0 auto;
+	}	
+}
+@media screen and (min-width: 992px) {
+	.modal-content {
+	  width: 300px; /* New width for large modal */
+	  margin: 0 auto;
+	}
 }
