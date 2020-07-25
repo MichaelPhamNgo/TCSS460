@@ -1,0 +1,5 @@
+- open q2.html, and wait for 5 seconds
+- Then refresh browser again.
+
+I don't know why if I open in the first time without refresh browser. It won't work.
+But if I wait for a couple seconds and refresh my browser. It will work.

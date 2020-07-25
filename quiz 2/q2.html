@@ -3,53 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>Quiz 2</title>
+    <link href="css/style.css" rel="stylesheet" type="text/css"/>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/app.js"></script>    
 </head>
-<body>
-    <div id="ipAddress">
-
+<body>    
+    <div class="container">
+        <div class="city"></div>
+        <div class="date"></div>
+        <div class="main"></div>
+        <div class="clearfix">
+            <div class="other">
+                <div class="humidity"></div>
+                <div>Wind: <span class="wind"></span></div>
+            </div>
+            <div class="icon"></div>                
+            <div class="switch">               
+                <a id="linkF" class="active">&#8457;</a> |
+                <a id="linkC">&#8451;</a>
+            </div>
+            <div class="temp"></div>
+        </div>        
     </div>
-    <div id="zipAddress">
-
-    </div>
-    <script>
-        $(document).ready(function(){
-            var ip = "";
-            $.get("https://api.ipify.org/?format=json", function(result){
-                ip = result["ip"];
-                // $("#ipAddress").html(ip);
-                if (typeof(Storage) !== "undefined") {
-                    // Store
-                    localStorage.setItem("ipAddress", ip);
-                    // Retrieve
-                    document.getElementById("ipAddress").innerHTML = localStorage.getItem("ipAddress");
-                } else {
-                    document.getElementById("ipAddress").innerHTML = "Sorry, your browser does not support Web Storage...";
-                }
-            
-            });
-            
-            var zip = "";            
-            $.get("http://ip-api.com/json/" + localStorage.getItem("ipAddress"), function(result){                
-                zip = parseInt(result["zip"]);
-                if (typeof(Storage) !== "undefined") {
-                    // Store
-                    localStorage.setItem("zipAddress", zip);
-                    // Retrieve
-                    document.getElementById("zipAddress").innerHTML = localStorage.getItem("zipAddress");
-                } else {
-                    document.getElementById("zipAddress").innerHTML = "Sorry, your browser does not support Web Storage...";
-                }
-            });
-            
-            // console.log("https://api.openweathermap.org/data/2.5/weather?zip="  + localStorage.getItem("zipAddress") + ",us&appid={your api key}");      
-            $.get("https://api.openweathermap.org/data/2.5/weather?zip="  + parseInt(localStorage.getItem("zipAddress")) 
-                        + ",us&appid=994a6946eec2406e889b7fe9b0ec9728&units=metric", function(result){                
-                console.log(JSON.stringify(result));
-            });
-            
-        });
-    </script>
 </body>
 </html>
